@@ -91,6 +91,45 @@ from the parent class */
 Based on this new coffee on the Coffee object. 
 Use the steps we followed to create Latte as your guide.*/
 
+class Mazagran extends Coffee {
+    constructor(size, isDecaf, amntShotsOfEspresso, hasRum) {
+        super(size, isDecaf);
+        this.amntShotsOfEspresso = amntShotsOfEspresso;
+        this.hasRum = hasRum;
+        this.sipIndex = 0;
+        this.sipFlavors = ["bitter", "sour", "sweet", "minty"]
+        this.ingridients = [`${this.amntShotsOfEspresso} espresso`, "lemon juice", "sugar", "mint"]
+    }
+
+    description() {
+        console.log(`A ${this.size} mazagran with ${this.amntShotsOfEspresso} shots of espresso.`);
+        hasRum ? "and with some rum..." : "";
+    }
+
+    makeASip() {
+        if (this.sipIndex > this.sipFlavors.length - 1) {
+            console.log('====================================');
+            console.log("You've finished your drink!");
+            console.log('====================================');
+        }
+        else {
+            console.log('====================================');
+            console.log(`You take a sip of your mazagran with ${this.ingridients[this.sipIndex]}`);
+            console.log(`It tastes ${this.sipFlavors[this.sipIndex]}.`);
+            console.log('====================================');
+            this.sipIndex++;
+        }
+    }
+
+
+}
+
+let davidMazagran = new Mazagran("large", false, 2, true);
+
+for (let i = 0; i < davidMazagran.ingridients.length; i++) {
+    davidMazagran.makeASip();
+}
+
 // This page inspired by and adapted from https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Classes_in_JavaScript
 
 // Special thanks to https://openclipart.org/detail/293550/coffee-to-go for the very cool coffee cup SVG
