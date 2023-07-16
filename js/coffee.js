@@ -102,33 +102,79 @@ class Mazagran extends Coffee {
     }
 
     description() {
-        console.log(`A ${this.size} mazagran with ${this.amntShotsOfEspresso} shots of espresso.`);
-        hasRum ? "and with some rum..." : "";
+        let message = `A ${this.size} mazagran with ${this.amntShotsOfEspresso} shots of espresso.`;
+        this.hasRum ? message += " and with some rum..." : "";
+
+        return message;
     }
 
     makeASip() {
         if (this.sipIndex > this.sipFlavors.length - 1) {
-            console.log('====================================');
-            console.log("You've finished your drink!");
-            console.log('====================================');
+            return "You've finished your drink!";
         }
         else {
-            console.log('====================================');
-            console.log(`You take a sip of your mazagran with ${this.ingridients[this.sipIndex]}`);
-            console.log(`It tastes ${this.sipFlavors[this.sipIndex]}.`);
-            console.log('====================================');
             this.sipIndex++;
+            return "You take a sip of your mazagran with " + this.ingridients[this.sipIndex - 1] + " and it tastes " + this.sipFlavors[this.sipIndex] + ".";
         }
     }
 
+
+}
+
+class BulletProofMazagranCoffee extends Mazagran {
+    constructor(size, isDecaf, amntShotsOfEspresso, hasRum, isBlended) {
+        super(size, isDecaf, amntShotsOfEspresso, hasRum);
+        this.isBlended = isBlended;
+        this.ingridients.push("butter");
+        this.sipFlavors.push("creamy");
+    }
+
+    blend() {
+        if (this.isBlended) {
+            return "Your coffee is already blended!"
+        }
+        else {
+            this.isBlended = true;
+            return "Blending your coffee... Done!"
+        }
+    }
+
+    tasteReaction() {
+        switch (this.sipIndex) {
+            case 0:
+                return "It really tastes like coffee!";
+            case 1:
+                return "Mmm... sour!";
+            case 2:
+                return "A little bit of sweetness..";
+            case 3:
+                return "Mint makes it refreshing!";
+            case 4:
+                return "The last creatmy sip!";
+            default:
+                return "You've finished your drink!";
+        }
+    }
 
 }
 
 let davidMazagran = new Mazagran("large", false, 2, true);
 
+console.log("=================ClassicMazagran==================");
 for (let i = 0; i < davidMazagran.ingridients.length; i++) {
-    davidMazagran.makeASip();
+    console.log(davidMazagran.makeASip());
 }
+
+let davidBulletproofMazagran = new BulletProofMazagranCoffee("large", false, 2, true, false);
+
+console.log("=================BulletProofMazagran==================");
+console.log(davidBulletproofMazagran.blend());
+
+for (let i = 0; i < davidBulletproofMazagran.ingridients.length; i++) {
+    console.log(davidBulletproofMazagran.makeASip());
+    console.log(davidBulletproofMazagran.tasteReaction());
+}
+
 
 // This page inspired by and adapted from https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Objects/Classes_in_JavaScript
 
